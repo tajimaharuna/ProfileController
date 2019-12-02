@@ -17,27 +17,27 @@
                  </ul>
                      @endif
                      <div class="form-group row">
-                         <label class="col-md-2">氏名(name)</label>
+                         <label class="col-md-2">氏名</label>
                          <div class="col-md-10">
-                             <input type="text" class="form-control" name="title" value="{{ old('title')}}">
+                             <input type="text" class="form-control" name="name" value="{{ old('name')}}">
                          </div>
                      </div> 
                      <div class="form-group row">
-                         <label class="col-md-2">性別(gender)</label>
+                         <label class="col-md-2">性別</label>
                          <div class="col-md-10">
-                             <input type="text" class="form-control" name="body" value="{{ old('body')}}">
+                             <input type="text" class="form-control" name="gender" value="{{ old('gender')}}">
                          </div>
                      </div>
                      <div class="form-group row">
-                         <label class="col-md-2">趣味(hobby)</label>
+                         <label class="col-md-2">趣味</label>
                          <div class="col-md-10">
-                             <textarea class="form-control" name="body" rows="8">{{ old('body') }}</textarea>
+                             <textarea class="form-control" name="hobby" rows="8">{{ old('hobby') }}</textarea>
                          </div>
                      </div>
                      <div class="form-group row">
-                         <label class="col-md-2">自己紹介欄(introduction)</label>
+                         <label class="col-md-2">自己紹介欄</label>
                          <div class="col-md-10">
-                             <textarea class="form-control" name="body" rows="8">{{ old('body') }}</textarea>
+                             <textarea class="form-control" name="introduction" rows="8">{{ old('introduction') }}</textarea>
                          </div>
                      </div>
                      {{ csrf_field() }}
