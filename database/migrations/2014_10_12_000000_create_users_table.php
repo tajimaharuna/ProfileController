@@ -21,7 +21,14 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            
         });
+        
+        User::create([
+            'name'=>'田島',
+            'email'=>'poweryellow28@iclowd.com',
+            'password'=>Hash::make("pass"),
+            ]);
     }
 
     /**
