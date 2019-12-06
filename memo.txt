@@ -1,0 +1,56 @@
+//PHP/Laravel 17 編集履歴を実装しよう//
+//【超応用】 プロフィールの更新履歴を保存する仕組みを作るにはどのようにしたらよいでしょうか。手順をまとめてみましょう。//
+/* 
+目標　編集履歴のデータをdatebaseの任意のtableに保存し、その結果を出力して表示させる。
+1. migrarionファイルの雛形を作る。
+php artisan make:migration create_任意のmigrationファイル名_table
+
+2. 1で作成したmigrationファイルを編集し、テーブル名と取得するデータの指定を行う。
+Schema::create('datebaseのテーブル名', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('〇〇_id');
+            $table->string('edited_at');
+            $table->timestamps();
+            
+3. migrarionを実行
+php artisan migrate
+
+4. Modelの雛形を作る。
+php artisan make:model 任意のモデル名
+
+5. 4で作成したmodelを編集し、取得するデータの指定を行う。
+protected $guarded = array('id');
+    public static $rules = array(
+        '○○_id' => 'required',
+        'edited_at' => 'required',
+        );
+        
+6. 同時に取得するmodelとの関連を定義する。
+public function 任意のmigrationファイル名(){
+        return $this->hasMany('App\任意のモデル名');
+    }
+    
+7. controllerのupdateアクションにIDと編集時刻を履歴として表示する命名をする。
+$history = new 任意のモデル名;
+      $history->〇〇_id = $〇〇->id;
+      $history->edited_at = Carbon::now();
+      $history->save();
+      
+8. データを記録するモデルの使用の宣言をする
+use App\ProfileHistory;
+use Carbon\Carbon;
+
+9. 表示できるようにviewを編集する（edit.blade.php）
+<div class="row mt-5">
+                    <div class="col-md-4 mx-auto">
+                        <h2>編集履歴</h2>
+                        <ul class="list-group">
+                            @if ($〇〇_form->任意のmigrationファイル名 != NULL)
+                             @foreach ($〇〇_form->任意のmigrationファイル名 as $history)
+                              <li class="list-group-item">{{ $history->edited_at }}</li>
+                             @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+*/
