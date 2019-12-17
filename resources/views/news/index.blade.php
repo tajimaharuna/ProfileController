@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
+        <h2>ニュース一覧</h2>
         <hr color="#c0c0c0">
-        <h1>ニュース一覧</h1>
         @if (!is_null($headline))
             <div class="row">
                 <div class="headline col-md-10 mx-auto">
@@ -11,10 +11,10 @@
                         <div class="col-md-6">
                             <div class="caption mx-auto">
                                 <div class="image">
-                                    @if ($headline->image_path)
-                                        <img src="{{ $headline->image_path }}">
+                                    @if($headline->image_path)
+                                    <img src="{{ $headline->image_path }}"></img>
                                     @endif
-                                </div>
+　　　　　　　　　　　　　　　　</div>
                                 <div class="title p-2">
                                     <h1>{{ str_limit($headline->title, 70) }}</h1>
                                 </div>
@@ -46,9 +46,9 @@
                             </div>
                             <div class="image col-md-6 text-right mt-4">
                                 @if ($post->image_path)
-                                    <img src="{{ $post->image_path }}">
+                                 <img src="{{ $post->image_path }}">
                                 @endif
-                            </div>
+　　　　　　　　　　　　　　</div>
                         </div>
                     </div>
                     <hr color="#c0c0c0">
