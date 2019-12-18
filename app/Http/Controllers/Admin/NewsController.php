@@ -59,40 +59,47 @@ class NewsController extends Controller
       if (empty($news)) {
         abort(404);    
       }
+      
       return view('admin.news.edit', ['news_form' => $news]);
   }
 
 
   public function update(Request $request)
-  {
+    {
       $this->validate($request, News::$rules);
       $news = News::find($request->id);
       $news_form = $request->all();
+      $form = $request->all();
       
-       if (isset($form['image'])) {
-       $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
-       $news->image_path = Storage::disk('s3')->url($path);
-      } else {
-          $news->image_path = null;
+      if (isset($news_form['image'])) {
+        
+         $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+         $news->image_path = Storage::disk('s3')->url($path);
+        unset($news_form['image']);
+        
+      } elseif (isset($request->remove)) {
+        
+        $news->image_path = null;
+        unset($news_form['remove']);
+        
       }
       
       unset($news_form['_token']);
-
       $news->fill($news_form)->save();
-      
-      $history = new History;
-      $history->news_id = $news->id;
-      $history->edited_at = Carbon::now();
-      $history->save();
 
-      return redirect('admin/news');
-  }
+        $history = new History;
+        $history->news_id = $news->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
+
+        return redirect('admin/news');
+    }
 
   public function delete(Request $request)
   {
       $news = News::find($request->id);
       $news->delete();
-      return redirect('admin/news/');
+      return redirect('admin/news');
   }  
 
 }
