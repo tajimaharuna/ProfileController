@@ -69,6 +69,13 @@ class NewsController extends Controller
       $news = News::find($request->id);
       $news_form = $request->all();
       
+       if (isset($form['image'])) {
+       $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+       $news->image_path = Storage::disk('s3')->url($path);
+      } else {
+          $news->image_path = null;
+      }
+      
       unset($news_form['_token']);
 
       $news->fill($news_form)->save();
