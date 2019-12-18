@@ -38,7 +38,7 @@ class NewsController extends Controller
       $news->fill($form);
       $news->save();
 
-      return redirect('admin/news/create');
+      return redirect('admin/news');
   }
 
   public function index(Request $request)
@@ -85,7 +85,7 @@ class NewsController extends Controller
       $history->edited_at = Carbon::now();
       $history->save();
 
-      return redirect('admin/news/');
+      return redirect('admin/news');
   }
 
   public function delete(Request $request)
